@@ -1,0 +1,29 @@
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Asia/Tokyo
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        sudo \
+        curl \
+        wget \
+        vim \
+        tree \
+        jq \
+        tzdata \
+        iputils-ping \
+        net-tools \
+        iproute2 \
+        unzip \
+        build-essential \
+        cmake \
+        git \
+        pkg-config \
+        docker.io \
+    && rm -rf /var/lib/apt/lists/*
+
+  RUN \
+    ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+
+CMD ["tail", "-f", "/dev/null"]
