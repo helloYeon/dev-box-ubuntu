@@ -1,0 +1,21 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "flagWords": [],
+  "userWords": [],
+  "words": [
+    "certonly",
+    "tzdata",
+    "dirmngr",
+    "venv",
+    "distutils",
+    "keyrings",
+    "noninteractive",
+    "dpkg",
+    "uamqp",
+    "zoneinfo",
+    "localtime",
+    "dearmor"
+  ],
+  "ignoreWords": ["fastapi", "venv"]
+}
