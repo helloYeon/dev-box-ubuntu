@@ -1,7 +1,7 @@
 CONTAINER_NAME :=dev-box-ubuntu
 # IMAGE_NAME :=
 build:
-	 docker build -t dev-box-ubuntu:22.04 -f Dockerfile.22.04 .
+	 docker build --platform=linux/amd64 -t dev-box-ubuntu:22.04 -f Dockerfile.22.04 .
 
 run:
 	@docker run --rm -it --name ${CONTAINER_NAME} dev-box-ubuntu:22.04 bash

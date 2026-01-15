@@ -3,6 +3,7 @@ FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Asia/Tokyo
 
+# Base tools
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         sudo \
@@ -21,9 +22,36 @@ RUN apt-get update && \
         git \
         pkg-config \
         docker.io \
+        ca-certificates \
+        gnupg \
+        dirmngr \
+        apt-transport-https \
+        lsb-release \
+        software-properties-common \
+    && ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime \
     && rm -rf /var/lib/apt/lists/*
 
-  RUN \
-    ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+# ---- Python 3.11 -------------------------------------------------
+RUN apt-get update && \
+    add-apt-repository -y ppa:deadsnakes/ppa && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+        python3.11 \
+        python3.11-dev \
+        python3.11-venv \
+        python3.11-distutils \
+    && curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11 \
+    && ln -sf /usr/bin/python3.11 /usr/bin/python \
+    && ln -sf /usr/bin/python3.11 /usr/bin/python3 \
+    && rm -rf /var/lib/apt/lists/*
+
+# ---- Azure CLI ---------------------------------------------------
+RUN apt-get update && \
+    curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /usr/share/keyrings/microsoft.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main" \
+        > /etc/apt/sources.list.d/azure-cli.list && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends azure-cli && \
+    rm -rf /var/lib/apt/lists/*
 
 CMD ["tail", "-f", "/dev/null"]
