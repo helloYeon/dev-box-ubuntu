@@ -1,7 +1,11 @@
 FROM ubuntu:22.04
 
-ENV DEBIAN_FRONTEND=noninteractive
-ENV TZ=Asia/Tokyo
+ENV TZ=Asia/Tokyo \
+DEBIAN_FRONTEND=noninteractive
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
+
 WORKDIR /app
 
 # Base tools
@@ -63,6 +67,7 @@ RUN apt-get update && \
 RUN az config set extension.use_dynamic_install=yes_without_prompt && \
     az config set extension.dynamic_install_allow_preview=false && \
     az extension add --name azure-iot --yes && \
+    az extension add --name containerapp --upgrade && \
     /opt/az/bin/python3 -m pip install --no-cache-dir "uamqp~=1.6.6"
 
 CMD ["tail", "-f", "/dev/null"]

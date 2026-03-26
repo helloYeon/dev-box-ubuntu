@@ -15,6 +15,18 @@
     "uamqp",
     "zoneinfo",
     "localtime",
+    "containerapp",
+    "localtime",
+    "localtime",
+    "localtime",
+    "localtime",
+    "localtime",
+    "localtime",
+    "localtime",
+    "localtime",
+    "localtime",
+    "localtime",
+    "localtime",
     "dearmor"
   ],
   "ignoreWords": ["fastapi", "venv"]
